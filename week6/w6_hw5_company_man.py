@@ -1,4 +1,4 @@
-from w6_hw5_employee import Employee
+from w6_hw5_employee import Employee, PartTimeEmployee
 from w6_hw5_company import Company
 
 class CompanyManagement:
@@ -25,9 +25,18 @@ class CompanyManagement:
     
     def add_employee(self):
         try:
+            emp_type = input('Enter employee type (1. Full-time/ 2. Part-time): ')
             name = input('Enter employee name: ')
             rate = float(input('Enter employee rate: '))
-            emp = Employee(name, rate)
+            
+            if emp_type == '1': 
+                emp = Employee(name, rate)
+            elif emp_type == '2':
+                dow = int(input('Enter working days of week: '))
+                emp = PartTimeEmployee(name, rate, dow)
+            else:
+                raise ValueError('Invalid employee type')
+            
             self.__company.add(emp)    
         except ValueError as e:
             print(e)
@@ -58,3 +67,7 @@ class CompanyManagement:
     
     def show_all_employees(self):
         self.__company.show_all()
+
+if __name__ == '__main__':
+    program = CompanyManagement('ABC Company')
+    program.run()
